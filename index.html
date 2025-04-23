@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AERO Fit | Premium Sportswear</title>
+    <link rel="stylesheet" href="sports.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+               <img src="logo2.png" alt="AERO-FIT">
+            </div>
+            <ul class="nav-links">
+                <li><a href="#Home">Home</a></li>
+                <li><a href="#shop">Shop</a></li>
+                <li><a href="#collections">Collections</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            
+<!-- Add this to your navbar's cart icon section in sports.html -->
+<div class="nav-icons">
+    <a href="#" class="icon"><i class="fas fa-search"></i></a>
+    <a href="#" class="icon"><i class="fas fa-user"></i></a>
+    <a href="#" class="icon cart-icon" id="cart-icon">
+        <i class="fas fa-shopping-cart"></i>
+        <span class="cart-count">0</span>
+    </a>
+    <!-- Cart Dropdown Container -->
+    <div class="cart-dropdown">
+        <div class="cart-dropdown-header">
+            <h3>Shopping Cart</h3>
+            <span class="cart-count-text">0 items</span>
+        </div>
+        <div class="cart-dropdown-empty">
+            <i class="fas fa-shopping-cart empty-cart-icon"></i>
+            <p>Your cart is empty</p>
+            <a href="#shop" class="btn btn-primary">Start Shopping</a>
+        </div>
+        <div class="cart-dropdown-items">
+            <!-- Cart items will be added here dynamically -->
+        </div>
+        <div class="cart-dropdown-subtotal">
+            <div class="subtotal-row">
+                <span>Subtotal:</span>
+                <span class="subtotal-amount">$0.00</span>
+            </div>
+        </div>
+        <div class="cart-dropdown-footer">
+            <a href="#" class="btn btn-outline">View Cart</a>
+            <a href="#" class="btn btn-primary">Checkout</a>
+        </div>
+    </div>
+</div>
+
+<!-- Cart Item Template (will be cloned via JavaScript) -->
+<template id="cart-item-template">
+    <div class="cart-item">
+        <div class="cart-item-image">
+            <img src="" alt="Product">
+        </div>
+        <div class="cart-item-details">
+            <h4 class="cart-item-name"></h4>
+            <div class="cart-item-variant">
+                <span class="cart-item-size"></span>
+            </div>
+            <div class="cart-item-price-qty">
+                <span class="cart-item-price"></span>
+                <div class="cart-item-quantity">
+                    <button class="quantity-btn quantity-decrease">-</button>
+                    <input type="number" min="1" value="1" class="quantity-input" readonly>
+                    <button class="quantity-btn quantity-increase">+</button>
+                </div>
+            </div>
+        </div>
+        <button class="remove-cart-item">
+            <i class="fas fa-trash-alt"></i>
+        </button>
+    </div>
+</template>
+               
+            
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+           
+            <div class="hero-content">
+                <h1>ELEVATE YOUR PERFORMANCE</h1>
+                <p>Premium sportswear designed for athletes who demand more</p>
+                <div class="hero-buttons">
+                    <a href="#shop" class="btn btn-primary">Shop Now</a>
+                    <a href="#collections" class="btn btn-secondary">New Collection</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Products Section -->
+        <section class="featured" id="shop">
+            <div class="section-header">
+                <h2>Featured Products</h2>
+                <p>Discover our best-selling performance wear</p>
+            </div>
+            <div class="product-grid">
+                <div class="product-card">
+                    <div class="product-image">
+                        <span class="badge">New</span>
+                        <img src="t3.png" alt="Performance T-Shirt">
+                        <div class="hover-icons">
+                            <button><i class="fas fa-heart"></i></button>
+                            <button><i class="fas fa-shopping-cart"></i></button>
+                            <button><i class="fas fa-eye"></i></button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>AERODry Performance T-Shirt</h3>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                            <span>(42)</span>
+                        </div>
+                        <div class="product-price">
+                            <span class="price">$49.99</span>
+                            <span class="original-price">$59.99</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="sr.png" alt="Running Shorts">
+                        <div class="hover-icons">
+                            <button><i class="fas fa-heart"></i></button>
+                            <button><i class="fas fa-shopping-cart"></i></button>
+                            <button><i class="fas fa-eye"></i></button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Ultra-Flex Running Shorts</h3>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <span>(87)</span>
+                        </div>
+                        <div class="product-price">
+                            <span class="price">$44.99</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">
+                        <span class="badge">Sale</span>
+                        <img src="sb2.png" alt="Sports Bra">
+                        <div class="hover-icons">
+                            <button><i class="fas fa-heart"></i></button>
+                            <button><i class="fas fa-shopping-cart"></i></button>
+                            <button><i class="fas fa-eye"></i></button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Impact Pro Sports Bra</h3>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <span>(63)</span>
+                        </div>
+                        <div class="product-price">
+                            <span class="price">$39.99</span>
+                            <span class="original-price">$54.99</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="leggins2.png" alt="Compression Leggings">
+                        <div class="hover-icons">
+                            <button><i class="fas fa-heart"></i></button>
+                            <button><i class="fas fa-shopping-cart"></i></button>
+                            <button><i class="fas fa-eye"></i></button>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>ThermoTech Compression Leggings</h3>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                            <span>(108)</span>
+                        </div>
+                        <div class="product-price">
+                            <span class="price">$64.99</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="section-footer">
+                <a href="#" class="btn btn-outline">View All Products</a>
+            </div>
+        </section>
+
+        <!-- Collections Section -->
+        <section class="collections" id="collections">
+            <div class="section-header">
+                <h2>Latest Collections</h2>
+                <p>Explore our seasonal lines designed for peak performance</p>
+            </div>
+            <div class="collection-grid">
+                <div class="collection-card">
+                    <img src="runningclub.png" alt="Running Collection">
+                    <div class="collection-info">
+                        <h3>Run Faster</h3>
+                        <p>Advanced fabrics for serious runners</p>
+                        <a href="#" class="btn btn-light">Shop Collection</a>
+                    </div>
+                </div>
+                <div class="collection-card">
+                    <img src="t50.png" alt="Training Collection">
+                    <div class="collection-info">
+                        <h3>Train Harder</h3>
+                        <p>Built for intense workouts and training sessions</p>
+                        <a href="#" class="btn btn-light">Shop Collection</a>
+                    </div>
+                </div>
+                <div class="collection-card">
+                    <img src="y2.png" alt="Yoga Collection">
+                    <div class="collection-info">
+                        <h3>Move Freely</h3>
+                        <p>Flexibility-focused gear for yoga and pilates</p>
+                        <a href="#" class="btn btn-light">Shop Collection</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features">
+            <div class="feature">
+                <i class="fas fa-shipping-fast"></i>
+                <h3>Free Shipping</h3>
+                <p>On all orders over $75</p>
+            </div>
+            <div class="feature">
+                <i class="fas fa-sync-alt"></i>
+                <h3>30-Day Returns</h3>
+                <p>Easy and hassle-free</p>
+            </div>
+            <div class="feature">
+                <i class="fas fa-shield-alt"></i>
+                <h3>Secure Payment</h3>
+                <p>Safe & protected checkout</p>
+            </div>
+            <div class="feature">
+                <i class="fas fa-headset"></i>
+                <h3>24/7 Support</h3>
+                <p>Dedicated customer service</p>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section class="about" id="about">
+            <div class="about-content">
+                <div class="about-text">
+                    <div class="section-header">
+                        <h2>About AERO Fit</h2>
+                        <p>Engineered for peak performance</p>
+                    </div>
+                    <p>AERO Fit was founded by athletes who weren't satisfied with existing sportswear options. Our mission is to create premium performance gear that combines cutting-edge materials with innovative design.</p>
+                    <p>Every product is rigorously tested under real-world conditions to ensure it meets our exacting standards. We believe in sustainable manufacturing practices and ethical sourcing, because how we make our products matters just as much as how they perform.</p>
+                    <a href="#" class="btn btn-secondary">Learn More</a>
+                </div>
+                <div class="about-image">
+                    <img src="newathelets.png" alt="AERO Fit Athletes">
+                </div>
+            </div>
+        </section>
+
+        <!-- Newsletter Section -->
+        <section class="newsletter">
+            <div class="newsletter-content">
+                <h2>Join the AERO Fit Community</h2>
+                <p>Subscribe to receive exclusive offers, early access to new releases, and performance tips from our athletes.</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Your email address" required>
+                    <button type="submit" class="btn btn-primary">Subscribe</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section class="testimonials">
+            <div class="section-header">
+                <h2>What Athletes Say</h2>
+                <p>Real feedback from real performers</p>
+            </div>
+            <div class="testimonial-slider">
+                <div class="testimonial">
+                    <div class="testimonial-content">
+                        <p>"The ThermoTech leggings have been a game-changer for my winter training. They keep me warm without overheating, and the compression gives me the support I need for long runs."</p>
+                        <div class="testimonial-author">
+                            <img src="jamuri.png" alt="Sarah J.">
+                            <div class="author-info">
+                                <h4>Sarah J.</h4>
+                                <p>Marathon Runner</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial">
+                    <div class="testimonial-content">
+                        <p>"As a CrossFit coach, I need gear that can withstand intense workouts. AERO Fit's performance line has outlasted every other brand I've tried, and the range of motion is unmatched."</p>
+                        <div class="testimonial-author">
+                            <img src="jamura.png" alt="Mike T.">
+                            <div class="author-info">
+                                <h4>Mike T.</h4>
+                                <p>CrossFit Coach</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial">
+                    <div class="testimonial-content">
+                        <p>"The Impact Pro sports bra provides amazing support for high-intensity training. Plus, the breathable fabric keeps me comfortable throughout my workouts. Absolutely worth every penny!"</p>
+                        <div class="testimonial-author">
+                            <img src="jamuri.png" alt="Leila M.">
+                            <div class="author-info">
+                                <h4>Leila M.</h4>
+                                <p>Fitness Instructor</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-dots">
+                <span class="dot active"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+            </div>
+        </section>
+
+        <!-- Instagram Feed Section -->
+        <section class="instagram">
+            <div class="section-header">
+                <h2>Follow Us on Instagram</h2>
+                <p>@aerofit_official</p>
+            </div>
+            <div class="instagram-grid">
+                <a href="#" class="instagram-item">
+                    <img src="m1.png" alt="Instagram post">
+                    <div class="instagram-overlay">
+                        <i class="fab fa-instagram"></i>
+                    </div>
+                </a>
+                <a href="#" class="instagram-item">
+                    <img src="w5.png" alt="Instagram post">
+                    <div class="instagram-overlay">
+                        <i class="fab fa-instagram"></i>
+                    </div>
+                </a>
+                <a href="#" class="instagram-item">
+                    <img src="m2.png" alt="Instagram post">
+                    <div class="instagram-overlay">
+                        <i class="fab fa-instagram"></i>
+                    </div>
+                </a>
+                <a href="#" class="instagram-item">
+                    <img src="m4.png" alt="Instagram post">
+                    <div class="instagram-overlay">
+                        <i class="fab fa-instagram"></i>
+                    </div>
+                </a>
+                <a href="#" class="instagram-item">
+                    <img src="w6.png" alt="Instagram post">
+                    <div class="instagram-overlay">
+                        <i class="fab fa-instagram"></i>
+                    </div>
+                </a>
+                <a href="#" class="instagram-item">
+                    <img src="m3.png" alt="Instagram post">
+                    <div class="instagram-overlay">
+                        <i class="fab fa-instagram"></i>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <!-- AI Chatbot Section -->
+        <section class="chatbot-section">
+            <div class="chatbot-container">
+                <div class="chatbot-header">
+                    <h3>Ask AERO Assistant</h3>
+                    <button id="close-chat" class="close-chat"><i class="fas fa-times"></i></button>
+                </div>
+                <div class="chat-messages" id="chat-messages">
+                    <div class="message bot">
+                        <div class="message-content">
+                            <p>Hi there! I'm your AERO Fit assistant. How can I help you with your sportswear needs today?</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="chat-input">
+                    <input type="text" id="user-message" placeholder="Type your question...">
+                    <button id="send-message"><i class="fas fa-paper-plane"></i></button>
+                </div>
+            </div>
+            <button id="chat-button" class="chat-button">
+                <i class="fas fa-comment-dots"></i>
+            </button>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="contact" id="contact">
+            <div class="section-header">
+                <h2>Get In Touch</h2>
+                <p>We'd love to hear from you</p>
+            </div>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h4>Address</h4>
+                            <p>123 Performance Drive, Fitness Park, CA 90210</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone-alt"></i>
+                        <div>
+                            <h4>Phone</h4>
+                            <p>(800) AERO-FIT</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h4>Email</h4>
+                            <p>support@aerofit.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-clock"></i>
+                        <div>
+                            <h4>Hours</h4>
+                            <p>Monday - Friday: 9am - 6pm</p>
+                            <p>Saturday: 10am - 4pm</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <form>
+                        <div class="form-group">
+                            <input type="text" placeholder="Your Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" placeholder="Your Email" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" placeholder="Subject">
+                        </div>
+                        <div class="form-group">
+                            <textarea placeholder="Your Message" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <div class="logo">
+                    <h2>AERO<span>fit</span></h2>
+                </div>
+                <p>Premium sportswear engineered for peak performance. Designed by athletes, for athletes.</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#"><i class="fab fa-pinterest"></i></a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Shop</h3>
+                <ul>
+                    <li><a href="#">Men's Collection</a></li>
+                    <li><a href="#">Women's Collection</a></li>
+                    <li><a href="#">Accessories</a></li>
+                    <li><a href="#">New Arrivals</a></li>
+                    <li><a href="#">Sale</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Support</h3>
+                <ul>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">FAQs</a></li>
+                    <li><a href="#">Shipping & Returns</a></li>
+                    <li><a href="#">Size Guide</a></li>
+                    <li><a href="#">Track Order</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Company</h3>
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Sustainability</a></li>
+                    <li><a href="#">Affiliates</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="payment-methods">
+                <i class="fab fa-cc-visa"></i>
+                <i class="fab fa-cc-mastercard"></i>
+                <i class="fab fa-cc-amex"></i>
+                <i class="fab fa-cc-paypal"></i>
+                <i class="fab fa-cc-apple-pay"></i>
+            </div>
+            <p>&copy; 2025 AERO Fit. All Rights Reserved.</p>
+        </div>
+    </footer><!-- Add this HTML code to your existing HTML file -->
+
+    <!-- This is a partial HTML snippet to be integrated into your existing HTML -->
+
+
+    
+   
+
+    <script src="script.js"></script>
+</body>
+</html>
