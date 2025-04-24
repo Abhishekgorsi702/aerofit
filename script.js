@@ -609,169 +609,246 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 // Cart Dropdown Functionality
-// Cart functionality
-document.addEventListener('DOMContentLoaded', function () {
-    const cartIcon = document.getElementById('cart-icon');
-    const cartContainer = document.getElementById('cart-container');
-    const overlay = document.getElementById('overlay');
-    const closeCart = document.getElementById('close-cart');
-    const cartItemsContainer = document.getElementById('cart-items');
-    const cartTotal = document.getElementById('cart-total');
-    const cartCount = document.querySelector('.cart-count');
-    const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
+// Cart functionality for AERO Fit website
 
-    let cart = [];
+// DOM Elements
+const cartIcon = document.getElementById('cart-icon');
+const cartContainer = document.getElementById('cart-container');
+const overlay = document.getElementById('overlay');
+const closeCart = document.getElementById('close-cart');
+const cartItems = document.getElementById('cart-items');
+const cartCount = document.querySelector('.cart-count');
+const cartTotal = document.getElementById('cart-total');
+const checkoutBtn = document.querySelector('.checkout-btn');
 
-    // Open cart
-    cartIcon.addEventListener('click', function () {
-        cartContainer.classList.add('open');
-        overlay.classList.add('active');
-        document.body.style.overflow = 'hidden';
-    });
+// Cart data
+let cart = [];
 
-    // Close cart
-    function closeCartFunction() {
-        cartContainer.classList.remove('open');
-        overlay.classList.remove('active');
-        document.body.style.overflow = '';
-    }
-
-    closeCart.addEventListener('click', closeCartFunction);
-    overlay.addEventListener('click', closeCartFunction);
-
-    // Add products to cart
-    addToCartButtons.forEach(button => {
-        button.addEventListener('click', function (e) {
-            e.stopPropagation();
-            const productCard = this.closest('.product-card');
-            const productName = productCard.querySelector('h3').textContent;
-            const productPrice = productCard.querySelector('.price').textContent.replace('$', '');
-            const productImage = productCard.querySelector('.product-image img').src;
-
-            // Check if product already in cart
-            const existingItem = cart.find(item => item.name === productName);
-
-            if (existingItem) {
-                existingItem.quantity++;
-            } else {
-                cart.push({
-                    name: productName,
-                    price: parseFloat(productPrice),
-                    image: productImage,
-                    quantity: 1
-                });
-            }
-
-            updateCart();
-            cartContainer.classList.add('open');
-            overlay.classList.add('active');
-            document.body.style.overflow = 'hidden';
-
-            // Add animation
-            const notification = document.createElement('div');
-            notification.classList.add('add-to-cart-notification');
-            notification.textContent = 'Item added to cart';
-            document.body.appendChild(notification);
-
-            setTimeout(() => {
-                notification.classList.add('show');
-            }, 100);
-
-            setTimeout(() => {
-                notification.classList.remove('show');
-                setTimeout(() => {
-                    document.body.removeChild(notification);
-                }, 300);
-            }, 2000);
-        });
-    });
-
-    // Update cart display
-    function updateCart() {
-        cartItemsContainer.innerHTML = '';
-
-        if (cart.length === 0) {
-            cartItemsContainer.innerHTML = '<div class="empty-cart-message">Your cart is empty</div>';
-            cartTotal.textContent = '$0.00';
-            cartCount.textContent = '0';
-            return;
-        }
-
-        let total = 0;
-        let itemCount = 0;
-
-        cart.forEach((item, index) => {
-            const itemTotal = item.price * item.quantity;
-            total += itemTotal;
-            itemCount += item.quantity;
-
-            const cartItem = document.createElement('div');
-            cartItem.classList.add('cart-item');
-            cartItem.innerHTML = `
-          <div class="cart-item-image">
-            <img src="${item.image}" alt="${item.name}">
-          </div>
-          <div class="cart-item-details">
-            <h4>${item.name}</h4>
-            <div class="cart-item-price">$${item.price.toFixed(2)}</div>
-            <div class="cart-item-controls">
-              <button class="quantity-btn minus" data-index="${index}">-</button>
-              <span class="quantity">${item.quantity}</span>
-              <button class="quantity-btn plus" data-index="${index}">+</button>
-            </div>
-          </div>
-          <button class="remove-btn" data-index="${index}">
-            <i class="fas fa-trash-alt"></i>
-          </button>
-        `;
-
-            cartItemsContainer.appendChild(cartItem);
-        });
-
-        cartTotal.textContent = `$${total.toFixed(2)}`;
-        cartCount.textContent = itemCount.toString();
-
-        // Add event listeners to the newly created buttons
-        document.querySelectorAll('.quantity-btn.minus').forEach(btn => {
-            btn.addEventListener('click', function () {
-                const index = parseInt(this.getAttribute('data-index'));
-                if (cart[index].quantity > 1) {
-                    cart[index].quantity--;
-                } else {
-                    cart.splice(index, 1);
-                }
-                updateCart();
-            });
-        });
-
-        document.querySelectorAll('.quantity-btn.plus').forEach(btn => {
-            btn.addEventListener('click', function () {
-                const index = parseInt(this.getAttribute('data-index'));
-                cart[index].quantity++;
-                updateCart();
-            });
-        });
-
-        document.querySelectorAll('.remove-btn').forEach(btn => {
-            btn.addEventListener('click', function () {
-                const index = parseInt(this.getAttribute('data-index'));
-                cart.splice(index, 1);
-                updateCart();
-            });
-        });
-    }
-
-    // Initialize the cart
-    updateCart();
-
-    // Checkout button functionality
-    document.querySelector('.checkout-btn').addEventListener('click', function () {
-        if (cart.length === 0) {
-            alert('Your cart is empty!');
-            return;
-        }
-
-        alert('Proceeding to checkout...');
-        // Here you would normally redirect to a checkout page
-    });
+// Event Listeners
+document.addEventListener('DOMContentLoaded', () => {
+  // Load cart from localStorage if available
+  loadCart();
+  
+  // Initialize product buttons
+  initializeAddToCartButtons();
+  
+  // Cart toggle
+  cartIcon.addEventListener('click', openCart);
+  closeCart.addEventListener('click', closeCartMenu);
+  overlay.addEventListener('click', closeCartMenu);
+  
+  // Checkout button
+  checkoutBtn.addEventListener('click', handleCheckout);
 });
+
+// Initialize add to cart buttons for all products
+function initializeAddToCartButtons() {
+  const addToCartButtons = document.querySelectorAll('.hover-icons button:nth-child(2)');
+  
+  addToCartButtons.forEach(button => {
+    button.addEventListener('click', function(e) {
+      e.preventDefault();
+      const productCard = this.closest('.product-card');
+      const productName = productCard.querySelector('h3').textContent;
+      const productPrice = productCard.querySelector('.price').textContent.replace('$', '');
+      const productImage = productCard.querySelector('.product-image img').src;
+      
+      addToCart({
+        id: generateProductId(productName),
+        name: productName,
+        price: parseFloat(productPrice),
+        image: productImage,
+        quantity: 1
+      });
+      
+      showNotification(`${productName} added to cart`);
+    });
+  });
+}
+
+// Generate a unique ID based on product name
+function generateProductId(name) {
+  return name.toLowerCase().replace(/\s+/g, '-');
+}
+
+// Add product to cart
+function addToCart(product) {
+  // Check if product already exists in cart
+  const existingProductIndex = cart.findIndex(item => item.id === product.id);
+  
+  if (existingProductIndex > -1) {
+    // Product exists, increase quantity
+    cart[existingProductIndex].quantity += 1;
+  } else {
+    // New product, add to cart
+    cart.push(product);
+  }
+  
+  // Update cart display
+  updateCart();
+  saveCart();
+}
+
+// Update cart display
+function updateCart() {
+  // Update cart count
+  const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+  cartCount.textContent = totalItems;
+  
+  // Update cart items display
+  if (cart.length === 0) {
+    cartItems.innerHTML = '<div class="empty-cart-message">Your cart is empty</div>';
+  } else {
+    cartItems.innerHTML = '';
+    cart.forEach(item => {
+      const cartItemElement = createCartItemElement(item);
+      cartItems.appendChild(cartItemElement);
+    });
+  }
+  
+  // Update total price
+  updateCartTotal();
+}
+
+// Create cart item element
+function createCartItemElement(item) {
+  const cartItem = document.createElement('div');
+  cartItem.className = 'cart-item';
+  cartItem.dataset.id = item.id;
+  
+  cartItem.innerHTML = `
+    <div class="cart-item-image">
+      <img src="${item.image}" alt="${item.name}">
+    </div>
+    <div class="cart-item-details">
+      <h4>${item.name}</h4>
+      <div class="cart-item-price">$${(item.price).toFixed(2)}</div>
+      <div class="cart-item-controls">
+        <button class="quantity-btn decrease">-</button>
+        <span class="quantity">${item.quantity}</span>
+        <button class="quantity-btn increase">+</button>
+        <button class="remove-btn"><i class="fas fa-trash"></i></button>
+      </div>
+    </div>
+  `;
+  
+  // Add event listeners to buttons
+  cartItem.querySelector('.decrease').addEventListener('click', () => {
+    decreaseQuantity(item.id);
+  });
+  
+  cartItem.querySelector('.increase').addEventListener('click', () => {
+    increaseQuantity(item.id);
+  });
+  
+  cartItem.querySelector('.remove-btn').addEventListener('click', () => {
+    removeFromCart(item.id);
+  });
+  
+  return cartItem;
+}
+
+// Update cart total price
+function updateCartTotal() {
+  const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+  cartTotal.textContent = `$${total.toFixed(2)}`;
+}
+
+// Increase item quantity
+function increaseQuantity(id) {
+  const itemIndex = cart.findIndex(item => item.id === id);
+  if (itemIndex > -1) {
+    cart[itemIndex].quantity += 1;
+    updateCart();
+    saveCart();
+  }
+}
+
+// Decrease item quantity
+function decreaseQuantity(id) {
+  const itemIndex = cart.findIndex(item => item.id === id);
+  if (itemIndex > -1) {
+    if (cart[itemIndex].quantity > 1) {
+      cart[itemIndex].quantity -= 1;
+    } else {
+      // If quantity would be 0, remove the item
+      cart.splice(itemIndex, 1);
+    }
+    updateCart();
+    saveCart();
+  }
+}
+
+// Remove item from cart
+function removeFromCart(id) {
+  cart = cart.filter(item => item.id !== id);
+  updateCart();
+  saveCart();
+}
+
+// Open cart
+function openCart() {
+  cartContainer.classList.add('open');
+  overlay.classList.add('active');
+  document.body.style.overflow = 'hidden'; // Prevent scrolling behind cart
+}
+
+// Close cart
+function closeCartMenu() {
+  cartContainer.classList.remove('open');
+  overlay.classList.remove('active');
+  document.body.style.overflow = ''; // Re-enable scrolling
+}
+
+// Show notification
+function showNotification(message) {
+  // Create notification element if it doesn't exist
+  let notification = document.querySelector('.add-to-cart-notification');
+  if (!notification) {
+    notification = document.createElement('div');
+    notification.className = 'add-to-cart-notification';
+    document.body.appendChild(notification);
+  }
+  
+  // Set message and show
+  notification.textContent = message;
+  notification.classList.add('show');
+  
+  // Hide after 3 seconds
+  setTimeout(() => {
+    notification.classList.remove('show');
+  }, 3000);
+}
+
+// Save cart to localStorage
+function saveCart() {
+  localStorage.setItem('aeroFitCart', JSON.stringify(cart));
+}
+
+// Load cart from localStorage
+function loadCart() {
+  const savedCart = localStorage.getItem('aeroFitCart');
+  if (savedCart) {
+    cart = JSON.parse(savedCart);
+    updateCart();
+  }
+}
+
+// Handle checkout
+function handleCheckout() {
+  if (cart.length === 0) {
+    showNotification('Your cart is empty');
+    return;
+  }
+  
+  // In a real application, you would redirect to a checkout page
+  // For this demo, we'll just show a notification and clear the cart
+  showNotification('Proceeding to checkout...');
+  setTimeout(() => {
+    cart = [];
+    updateCart();
+    saveCart();
+    closeCartMenu();
+    showNotification('Thanks for your order!');
+  }, 1500);
+}
