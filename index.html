@@ -25,66 +25,38 @@
             </ul>
             
 <!-- Add this to your navbar's cart icon section in sports.html -->
-<div class="nav-icons">
+<!-- cart functionality-->
+<div class="nav-items nav-icons">
     <a href="#" class="icon"><i class="fas fa-search"></i></a>
     <a href="#" class="icon"><i class="fas fa-user"></i></a>
-    <a href="#" class="icon cart-icon" id="cart-icon">
+    <div class="icon cart-icon" id="cart-icon">
         <i class="fas fa-shopping-cart"></i>
         <span class="cart-count">0</span>
-    </a>
-    <!-- Cart Dropdown Container -->
-    <div class="cart-dropdown">
-        <div class="cart-dropdown-header">
-            <h3>Shopping Cart</h3>
-            <span class="cart-count-text">0 items</span>
-        </div>
-        <div class="cart-dropdown-empty">
-            <i class="fas fa-shopping-cart empty-cart-icon"></i>
-            <p>Your cart is empty</p>
-            <a href="#shop" class="btn btn-primary">Start Shopping</a>
-        </div>
-        <div class="cart-dropdown-items">
-            <!-- Cart items will be added here dynamically -->
-        </div>
-        <div class="cart-dropdown-subtotal">
-            <div class="subtotal-row">
-                <span>Subtotal:</span>
-                <span class="subtotal-amount">$0.00</span>
-            </div>
-        </div>
-        <div class="cart-dropdown-footer">
-            <a href="#" class="btn btn-outline">View Cart</a>
-            <a href="#" class="btn btn-primary">Checkout</a>
-        </div>
     </div>
 </div>
 
-<!-- Cart Item Template (will be cloned via JavaScript) -->
-<template id="cart-item-template">
-    <div class="cart-item">
-        <div class="cart-item-image">
-            <img src="" alt="Product">
-        </div>
-        <div class="cart-item-details">
-            <h4 class="cart-item-name"></h4>
-            <div class="cart-item-variant">
-                <span class="cart-item-size"></span>
-            </div>
-            <div class="cart-item-price-qty">
-                <span class="cart-item-price"></span>
-                <div class="cart-item-quantity">
-                    <button class="quantity-btn quantity-decrease">-</button>
-                    <input type="number" min="1" value="1" class="quantity-input" readonly>
-                    <button class="quantity-btn quantity-increase">+</button>
-                </div>
-            </div>
-        </div>
-        <button class="remove-cart-item">
-            <i class="fas fa-trash-alt"></i>
-        </button>
+<!-- Cart Overlay -->
+<div class="overlay" id="overlay"></div>
+
+<!-- Cart Container -->
+<div class="cart-container" id="cart-container">
+    <div class="cart-header">
+        <h2 class="cart-title">Your Cart</h2>
+        <div class="close-cart" id="close-cart">×</div>
     </div>
-</template>
-               
+    <div class="cart-items" id="cart-items">
+        <div class="empty-cart-message">Your cart is empty</div>
+    </div>
+    <div class="cart-footer">
+        <div class="cart-total">
+            <span>Total:</span>
+            <span id="cart-total">$0.00</span>
+        </div>
+        <button class="checkout-btn">Checkout</button>
+    </div>
+</div>
+    <!-- Cart Dropdown Container -->
+    
             
             <div class="hamburger">
                 <span class="bar"></span>
@@ -406,31 +378,7 @@
             </div>
         </section>
 
-        <!-- AI Chatbot Section -->
-        <section class="chatbot-section">
-            <div class="chatbot-container">
-                <div class="chatbot-header">
-                    <h3>Ask AERO Assistant</h3>
-                    <button id="close-chat" class="close-chat"><i class="fas fa-times"></i></button>
-                </div>
-                <div class="chat-messages" id="chat-messages">
-                    <div class="message bot">
-                        <div class="message-content">
-                            <p>Hi there! I'm your AERO Fit assistant. How can I help you with your sportswear needs today?</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="chat-input">
-                    <input type="text" id="user-message" placeholder="Type your question...">
-                    <button id="send-message"><i class="fas fa-paper-plane"></i></button>
-                </div>
-            </div>
-            <button id="chat-button" class="chat-button">
-                <i class="fas fa-comment-dots"></i>
-            </button>
-        </section>
-
-        <!-- Contact Section -->
+        
         <section class="contact" id="contact">
             <div class="section-header">
                 <h2>Get In Touch</h2>
@@ -549,8 +497,7 @@
 
     <!-- This is a partial HTML snippet to be integrated into your existing HTML -->
 
-
-    
+ 
    
 
     <script src="script.js"></script>
